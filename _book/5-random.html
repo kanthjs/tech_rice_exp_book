@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="เทคนิคการทดลองในแปลงนาข้าว">
 
 <title>เทคนิคการทดลองในแปลงนาข้าว - 5&nbsp; การสุ่ม</title>
 <style>
@@ -85,6 +86,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./6-soil_het.html" rel="next">
 <link href="./4-blocking.html" rel="prev">
+<link href="./quadrat-frame-favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -140,7 +142,10 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">เทคนิคการทดลองในแปลงนาข้าว</a> 
     </div>
@@ -161,7 +166,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1-plotsize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ขนาด รูปร่าง และการวางแนวของแปลง</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ขนาด รูปร่าง และการวางแนวแปลง</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -179,7 +184,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4-blocking.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">บล้อก</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">บล็อก</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -227,19 +232,19 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./12-number_seedlings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ผลกระทบของการใช้จำนวนต้นต่อกอที่ไม่คงที่</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">จำนวนต้นต่อกอ</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-offtypes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ผลตกค้างของปุ๋ย</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ต้นปน (Off-Types)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./14-pest_disease.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">ผลตกค้างของปุ๋ย</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">ผลกระทบต่อการทดลอง</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -251,7 +256,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./16-plot_sampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">องค์ประกอบของการสุ่มตัวอย่างในพล็อต</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">การสุ่มตัวอย่างในพล็อต</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -383,30 +388,30 @@ div.csl-indent {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>design<span class="sc">$</span>book</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   plots block treatments
-1    101     1         T5
+1    101     1         T4
 2    102     1         T1
 3    103     1         T3
-4    104     1         T2
-5    105     1         T6
-6    106     1         T4
-7    201     2         T4
-8    202     2         T6
-9    203     2         T1
+4    104     1         T6
+5    105     1         T2
+6    106     1         T5
+7    201     2         T3
+8    202     2         T1
+9    203     2         T5
 10   204     2         T2
-11   205     2         T3
-12   206     2         T5
-13   301     3         T2
-14   302     3         T5
-15   303     3         T3
-16   304     3         T1
-17   305     3         T6
-18   306     3         T4
+11   205     2         T4
+12   206     2         T6
+13   301     3         T1
+14   302     3         T3
+15   303     3         T2
+16   304     3         T5
+17   305     3         T4
+18   306     3         T6
 19   401     4         T5
 20   402     4         T6
 21   403     4         T3
-22   404     4         T1
-23   405     4         T4
-24   406     4         T2</code></pre>
+22   404     4         T4
+23   405     4         T2
+24   406     4         T1</code></pre>
 </div>
 </div>
 </section>
@@ -662,7 +667,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./4-blocking.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">บล้อก</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">บล็อก</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
