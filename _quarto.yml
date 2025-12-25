@@ -7,10 +7,10 @@ book:
   author: "Kanthanawit Jaisong"
   favicon: "quadrat-frame-favicon.ico"
   description: เทคนิคการทดลองในแปลงนาข้าว
+  repo-url: https://github.com/kanthjs/tech_rice_exp_book
   sidebar:
     logo: "logo.png"
     search: true
-  date: "22/12/2568"
   chapters:
     - index.qmd
     - 1-plotsize.qmd
