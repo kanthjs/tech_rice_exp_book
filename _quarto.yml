@@ -1,0 +1,50 @@
+project:
+  type: book
+
+book:
+  title: "เทคนิคการทดลองในแปลงนาข้าว"
+  author: "Kanthanawit Jaisong"
+  favicon: "quadrat-frame-favicon.ico"
+  description: เทคนิคการทดลองในแปลงนาข้าว
+  sidebar:
+    logo: "logo.png"
+    search: true
+  date: "22/12/2568"
+  chapters:
+    - index.qmd
+    - 1-plotsize.qmd
+    - 2-number_rep.qmd
+    - 3-exp_design.qmd
+    - 4-blocking.qmd
+    - 5-random.qmd
+    - 6-soil_het.qmd
+    - 7-border_effect.qmd
+    - 8-missing_hills.qmd
+    - 9-replanting.qmd
+    - 10-residual_fert.qmd
+    - 11-residual_unplanted.qmd
+    - 12-number_seedlings.qmd
+    - 13-offtypes.qmd
+    - 14-pest_disease.qmd
+    - 15-minor.qmd
+    - 16-plot_sampling.qmd
+    - 17-measuring_yield.qmd
+    - 18-measuring_height.qmd
+    - 19-measuring_component.qmd
+    - 20-measuring_lai.qmd
+    - 21-measuring_stemborer.qmd
+    - 22-sampling_broadcast.qmd
+    - 23-sampling_protein.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    mainfont: "Google Sans"
+  pdf:
+    documentclass: scrreprt
+    mainfont: "Google Sans"
+
+editor: visual

@@ -1,0 +1,80 @@
+{
+    "sources": [
+        {
+            "DOI": "10.1093/comjnl/27.2.97",
+            "ISSN": "0010-4620",
+            "URL": "https://doi.org/10.1093/comjnl/27.2.97",
+            "author": [
+                {
+                    "family": "Knuth",
+                    "given": "Donald E."
+                }
+            ],
+            "container-title": "Comput. J.",
+            "id": "knuth84",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1984,
+                        5
+                    ]
+                ]
+            },
+            "page": "97-111",
+            "publisher": "Oxford University Press, Inc.",
+            "publisher-place": "USA",
+            "title": "Literate programming",
+            "type": "article-journal",
+            "volume": "27"
+        },
+        {
+            "DOI": "10.32614/CRAN.package.agricolae",
+            "URL": "https://CRAN.R-project.org/package=agricolae",
+            "author": [
+                {
+                    "family": "Mendiburu",
+                    "given": "Felipe",
+                    "non-dropping-particle": "de"
+                }
+            ],
+            "id": "agricolae",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "note": "R package version 1.3-7",
+            "title": "Agricolae: Statistical procedures for agricultural research",
+            "title-short": "Agricolae",
+            "type": "book"
+        },
+        {
+            "URL": "http://books.irri.org/9711040492_content.pdf",
+            "author": [
+                {
+                    "family": "Gomez",
+                    "given": "Kwanchai A."
+                }
+            ],
+            "id": "gomez1972techniques",
+            "issued": {
+                "date-parts": [
+                    [
+                        1972
+                    ]
+                ]
+            },
+            "page": "46",
+            "publisher": "International Rice Research Institute (IRRI)",
+            "publisher-place": "Los Baños, Philippines",
+            "title": "Techniques for field experiments with rice",
+            "type": "book"
+        }
+    ],
+    "project_biblios": [
+        "references.bib"
+    ]
+}

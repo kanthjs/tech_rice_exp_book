@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="เทคนิคการทดลองในแปลงนาข้าว">
+
+<title>เทคนิคการทดลองในแปลงนาข้าว - 3&nbsp; การออกแบบการทดลอง</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./4-blocking.html" rel="next">
+<link href="./2-number_rep.html" rel="prev">
+<link href="./quadrat-frame-favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-exp_design.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">การออกแบบการทดลอง</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">เทคนิคการทดลองในแปลงนาข้าว</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-plotsize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ขนาด รูปร่าง และการวางแนวแปลง</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-number_rep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">จำนวนซ้ำ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-exp_design.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">การออกแบบการทดลอง</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-blocking.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">บล็อก</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">การสุ่ม</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6-soil_het.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ความไม่สม่ำเสมอของดิน</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./7-border_effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">อิทธิพลของขอบแปลง</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./8-missing_hills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">กอหาย</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./9-replanting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">การปลูกซ่อม</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-residual_fert.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ผลตกค้างของปุ๋ย</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-residual_unplanted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">ผลตกค้างของทางเดินที่ไม่ได้ปลูก</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-number_seedlings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">จำนวนต้นต่อกอ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-offtypes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ต้นปน (Off-TypeS)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-pest_disease.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">ผลกระทบต่อการทดลอง</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-minor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">แหล่งความแปรปรวนย่อยอื่น ๆ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-plot_sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">การสุ่มตัวอย่างในพล็อต</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-measuring_yield.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">การวัดผลผลิต</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-measuring_height.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">การวัดความสูงและจำนวนกอ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./19-measuring_component.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">การวัดองค์ประกอบผลผลิต</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./20-measuring_lai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">การวัด Leaf Area Index</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-measuring_stemborer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">การวัดการระบาดของหนอนกอข้าว</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22-sampling_broadcast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">การสุ่มตัวอย่างในนาหว่าน</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-sampling_protein.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">การสุ่มตัวอย่างเพื่อหาปริมาณโปรตีน</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#การเลอกแผนการทดลอง" id="toc-การเลอกแผนการทดลอง" class="nav-link active" data-scroll-target="#การเลอกแผนการทดลอง"><span class="header-section-number">3.1</span> การเลือกแผนการทดลอง</a></li>
+  <li><a href="#กลมของแผนการทดลองทนยมใชในการทดลอง" id="toc-กลมของแผนการทดลองทนยมใชในการทดลอง" class="nav-link" data-scroll-target="#กลมของแผนการทดลองทนยมใชในการทดลอง"><span class="header-section-number">3.2</span> กลุ่มของแผนการทดลองที่นิยมใช้ในการทดลอง</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">การออกแบบการทดลอง</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TL;DR:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>แผนการทดลองที่ดีช่วยให้การทดลองภาคสนามมีความถูกต้องและแม่นยำ โดยใช้หลักการทำซ้ำ การสุ่ม และการควบคุมความคลาดเคลื่อน</p>
+</div>
+</div>
+<p>แผนการทดลอง หมายถึง กฎเกณฑ์ที่ใช้ในการกำหนดทรีตเมนต์ให้กับแปลงทดลอง หากดำเนินการอย่างถูกต้อง จะช่วยให้สามารถเปรียบเทียบระหว่างทรีตเมนต์ได้อย่างถูกต้อง (valid) และช่วยควบคุมแหล่งความแปรปรวนหลักในการทดลองภาคสนาม ซึ่งก็คือ ความไม่สม่ำเสมอของดิน (Soil heterogeneity)</p>
+<p>แผนการทดลองที่เหมาะสมต้องยึดหลักสำคัญ 3 ประการ</p>
+<ol type="1">
+<li>การทำซ้ำ (Replication)</li>
+<li>การสุ่ม (Randomization)</li>
+<li>การควบคุมความคลาดเคลื่อน (Error control)</li>
+</ol>
+<section id="การเลอกแผนการทดลอง" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="การเลอกแผนการทดลอง"><span class="header-section-number">3.1</span> การเลือกแผนการทดลอง</h2>
+<p>ประเภทของแผนการทดลองที่ดีที่สุดขึ้นอยู่กับปัจจัยดังนี้:</p>
+<ul>
+<li><p>ระดับความไม่สม่ำเสมอของดินในพื้นที่ทดลอง</p></li>
+<li><p>ประเภทและจำนวนของทรีตเมนต์ที่จะทดสอบ</p></li>
+<li><p>ระดับความแม่นยำ (precision) ที่ต้องการ</p></li>
+</ul>
+<p><u>ห้ามเลือกแผนการทดลองที่ขาดหลักการใดหลักการหนึ่งในสามประการข้างต้น</u></p>
+</section>
+<section id="กลมของแผนการทดลองทนยมใชในการทดลอง" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="กลมของแผนการทดลองทนยมใชในการทดลอง"><span class="header-section-number">3.2</span> กลุ่มของแผนการทดลองที่นิยมใช้ในการทดลอง</h2>
+<p>แผนการทดลองแบ่งออกเป็น 3 กลุ่มใหญ่ ดังนี้:</p>
+<p><strong>1. แผนการทดลองแบบบล็อกสมบูรณ์ (Complete Block Designs)</strong> มักใช้กับการทดลองอย่างง่ายที่มีจำนวนทรีตเมนต์ไม่มากนัก มีลักษณะสำคัญคือ:</p>
+<ul>
+<li><p>ทรีตเมนต์ทุกตัวจะปรากฏอยู่ในทุกบล็อก</p></li>
+<li><p>การวิเคราะห์ข้อมูลทำได้ง่าย</p></li>
+<li><p>จัดการข้อมูลที่ขาดหาย (missing data) ได้สะดวก</p></li>
+<li><p>ใช้ได้ทั้งกับการทดลองแบบปัจจัยเดียว (Single-factor) และแบบแฟกทอเรียล (Factorial)</p></li>
+</ul>
+<p><strong>2. แผนการทดลองแบบบล็อกไม่สมบูรณ์ (Incomplete Block Designs)</strong> ใช้สำหรับการทดลองที่มีจำนวนทรีตเมนต์มากเกินกว่าจะบรรจุลงในบล็อกที่มีความสม่ำเสมอเดียวกันได้หมด เช่น การทดสอบพันธุ์ข้าวที่มีหลายร้อยพันธุ์ มีลักษณะคือ:</p>
+<ul>
+<li><p>ทรีตเมนต์ทั้งหมดจะไม่ปรากฏอยู่ในบล็อกเดียวกัน</p></li>
+<li><p>การวิเคราะห์ข้อมูลมีความซับซ้อนกว่า โดยเฉพาะเมื่อมีข้อมูลขาดหาย</p></li>
+</ul>
+<p><strong>3. แผนการทดลองแบบสปลิตพลอต (Split-plot Designs)</strong> ใช้สำหรับการทดลองแบบแฟกทอเรียลเท่านั้น ในกรณีที่มีชุดรวมของทรีตเมนต์จำนวนมาก หรือเมื่อทรีตเมนต์บางตัวต้องการขนาดแปลงที่ใหญ่กว่าตัวอื่น</p>
+<p><strong>กฎเกณฑ์พื้นฐานในการเลือกแผนการทดลอง</strong></p>
+<ol type="1">
+<li>การทดลองปัจจัยเดียว (Single factor experiments)</li>
+</ol>
+<table class="table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>แผนการทดลอง</th>
+<th>เงื่อนไขการใช้งาน</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>RCB</strong></td>
+<td>ทรีตเมนต์น้อยกว่า 10 ตัว, ทำซ้ำกี่ครั้งก็ได้, ดินมีความอุดมสมบูรณ์ต่างกันในทิศทางเดียว</td>
+</tr>
+<tr class="even">
+<td><strong>Latin Square</strong></td>
+<td>ทรีตเมนต์ 4 ถึง 8 ตัว, จำนวนซ้ำต้องเท่ากับจำนวนทรีตเมนต์, ดินต่างกันในสองทิศทาง</td>
+</tr>
+<tr class="odd">
+<td><strong>Balanced Lattice</strong></td>
+<td>ทรีตเมนต์จำนวนมาก (เช่น <span class="math inline">\(p^2\)</span> ตัว), จำนวนซ้ำต้องเป็น <span class="math inline">\(p+1\)</span>, ให้ความแม่นยำเท่ากันทุกคู่เปรียบเทียบ</td>
+</tr>
+<tr class="even">
+<td><strong>Partially Balanced Lattice</strong></td>
+<td>ทรีตเมนต์จำนวนมาก (<span class="math inline">\(p^2\)</span> ตัว), ทำซ้ำกี่ครั้งก็ได้, บางคู่เปรียบเทียบจะมีความแม่นยำสูงกว่าคู่อื่น</td>
+</tr>
+</tbody>
+</table>
+<ol start="2" type="1">
+<li>การทดลองหลายปัจจัย (Factorial experiments)</li>
+</ol>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>แผนการทดลอง</th>
+<th>เงื่อนไขการใช้งาน</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>RCB</strong></td>
+<td>ชุดรวมทรีตเมนต์น้อยกว่า 10 แบบ, อิทธิพลหลักและอิทธิพลร่วมมีความสำคัญเท่ากัน</td>
+</tr>
+<tr class="even">
+<td><strong>Split-plot</strong></td>
+<td>มีอย่างน้อย 2 ปัจจัยที่ความสำคัญไม่เท่ากัน, ปัจจัยที่สำคัญน้อยกว่าหรือต้องการพื้นที่ใหญ่กว่าจะถูกวางไว้ในพล็อตหลัก (Main plots)</td>
+</tr>
+<tr class="odd">
+<td><strong>Split-split plot</strong></td>
+<td>มีอย่างน้อย 3 ปัจจัย, เรียงลำดับความสำคัญจากน้อยไปมาก (Main plots &gt; Subplots &gt; Sub-subplots)</td>
+</tr>
+<tr class="even">
+<td><strong>Strip-plot</strong></td>
+<td>ปัจจัยต้องการพื้นที่ใหญ่เกินกว่าขนาด Subplot ปกติ, เน้นศึกษาอิทธิพลร่วม (Interaction) มากกว่าอิทธิพลหลัก</td>
+</tr>
+<tr class="odd">
+<td><strong>Confounding</strong></td>
+<td>มีมากกว่า 2 ปัจจัย, ยอมเสียความแม่นยำในอิทธิพลร่วมอันดับสูง (High-order interactions) เพื่อเพิ่มประสิทธิภาพด้านอื่น</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./2-number_rep.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">จำนวนซ้ำ</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./4-blocking.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">บล็อก</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
