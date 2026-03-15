@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://kanthjs.github.io',
-	base: '/tech_rice_exp_book',
+	base: import.meta.env.BASE_URL || '/',
 	markdown: {
 		remarkPlugins: [remarkMath],
 		rehypePlugins: [rehypeKatex],
