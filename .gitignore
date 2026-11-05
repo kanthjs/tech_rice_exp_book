@@ -17,3 +17,8 @@ Thumbs.db
 # claude
 CLAUDE.md
 .claude/
+
+# Quarto intermediate files left at the root by an interrupted render
+/*.html
+!/favicon-head.html
+/site_libs/
