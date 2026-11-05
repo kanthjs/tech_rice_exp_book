@@ -1,0 +1,28 @@
+/*-- scss:defaults --*/
+
+// Typography (shared by light and dark themes).
+// @font-face rules live in fonts/fonts.css.
+$font-family-sans-serif: "Chulabhorn Likit Text", system-ui, -apple-system, sans-serif;
+$headings-font-family: "Chulabhorn Likit Display", "Chulabhorn Likit Text", system-ui, -apple-system, sans-serif;
+$headings-font-weight: 500;
+$line-height-base: 1.8;
+$font-size-root: 17px;
+
+/*-- scss:rules --*/
+
+.sidebar-title,
+.navbar-title,
+.quarto-title .title {
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+}
+
+// Part headings in the sidebar
+.sidebar-item-section > .sidebar-item-container .sidebar-item-text {
+  font-weight: 500;
+}
+
+.quarto-figure img {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,26 @@
+/*-- scss:defaults --*/
+
+// Rice-field palette (light theme only)
+$colors: (
+  "rice-green": #2f6b2f,
+  "rice-green-dark": #1f4a20,
+  "paddy-brown": #8a5a2b,
+  "straw": #c9a227,
+  "grain-cream": #fbf8f1
+);
+
+@function theme-color($color) {
+  @return map-get($colors, $color);
+}
+
+$primary: theme-color("rice-green");
+$link-color: theme-color("rice-green");
+$body-bg: theme-color("grain-cream");
+$code-color: theme-color("paddy-brown");
+$headings-color: theme-color("rice-green-dark");
+
+/*-- scss:rules --*/
+
+.sidebar-item-section > .sidebar-item-container .sidebar-item-text {
+  color: theme-color("paddy-brown");
+}
