@@ -19,17 +19,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+
+      - uses: r-lib/actions/setup-r@v2
         with:
-          node-version: 20
-          cache: npm
-      - run: npm install
-      - run: npm run build
-        env:
-          BASE_URL: '/tech_rice_exp_book'
+          use-public-rspm: true
+
+      - name: Install R packages
+        run: Rscript -e 'install.packages(c("knitr", "rmarkdown", "agricolae"))'
+
+      - name: Render book
+        run: quarto render
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./_book
 
   deploy:
     needs: build
