@@ -1,0 +1,13 @@
+{
+  "name": "rice-exp-book",
+  "description": "Conventions for writing, rendering and deploying the Thai Quarto book เทคนิคการทดลองในแปลงนาข้าว.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Kanthanawit Jaisong"
+  },
+  "homepage": "https://kanthjs.github.io/tech_rice_exp_book/",
+  "repository": "https://github.com/kanthjs/tech_rice_exp_book",
+  "skills": [
+    "./skills/rice-exp-book"
+  ]
+}

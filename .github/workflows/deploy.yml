@@ -27,7 +27,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install R packages
-        run: Rscript -e 'install.packages(c("knitr", "rmarkdown", "agricolae"))'
+        run: Rscript -e 'install.packages(c("knitr", "rmarkdown", "agricolae", "downlit", "xml2"))'
 
       - name: Render book
         run: quarto render

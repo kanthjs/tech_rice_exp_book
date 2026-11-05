@@ -3,13 +3,21 @@ project:
   output-dir: _book
   resources:
     - fonts/*.woff2
+    - images/favicon.svg
+    - images/favicon-96x96.png
+    - images/apple-touch-icon.png
+    - images/web-app-manifest-*.png
+    - site.webmanifest
 
 lang: th
 
+# llms-txt is set in both places: Quarto >= 1.11 copies book.llms-txt over
+# website.llms-txt, while older releases only read website.llms-txt.
 website:
   llms-txt: true
 
 book:
+  llms-txt: true
   title: "เทคนิคการทดลองในแปลงนาข้าว"
   subtitle: "สำหรับนักวิจัยข้าวที่ทำการทดลองภาคสนาม"
   author: "Kanthanawit Jaisong"
@@ -83,6 +91,7 @@ format:
       light: [cosmo, styles.scss, light.scss]
       dark: [darkly, styles.scss]
     css: fonts/fonts.css
+    include-in-header: favicon-head.html
     toc: true
     toc-depth: 3
     number-sections: true

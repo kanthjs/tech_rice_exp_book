@@ -38,17 +38,31 @@ tech_rice_exp_book/
 ├── ...                  # บทที่ 2–23
 ├── references.qmd       # เอกสารอ้างอิง
 ├── references.bib       # BibTeX (อ้างอิงด้วย @key)
-├── styles.css           # ฟอนต์ Noto Sans Thai
-└── images/              # รูปประกอบ ปก โลโก้ favicon
+├── styles.scss          # ตัวแปร theme ที่ใช้ร่วมกัน (ฟอนต์)
+├── light.scss           # สีนาข้าว (light theme)
+├── fonts/               # ฟอนต์จุฬาภรณ์ลิขิต (woff2 + fonts.css)
+├── images/              # รูปประกอบ ปก โลโก้ favicon
+├── favicon-head.html    # <link> ของ favicon/manifest
+├── site.webmanifest
+├── _check-media.R       # หารูปที่ไม่ได้ใช้ / path รูปที่ไม่มีอยู่
+└── skills/rice-exp-book # Claude skill: กติกาการเขียนเล่มนี้
 ```
 
 ## การเขียนเนื้อหา
 
-- เพิ่มบทใหม่: สร้าง `N-slug.qmd` แล้วเพิ่มใน `book.chapters` ของ `_quarto.yml`
-- รูป: `![คำบรรยาย](images/figN.M.png){#fig-xxx}` แล้วอ้างด้วย `@fig-xxx`
-- กล่องข้อความ: `::: {.callout-tip}` / `note` / `warning` / `important`
-- โค้ด R: ใช้ ```` ```{r} ```` จะถูกรันตอน render; ใส่ `#| eval: false` ถ้าไม่ต้องการให้รัน
-- อ้างอิง: `[@gomez1972techniques]`
+กติกาทั้งหมด (การเพิ่มบท, ศัพท์, callout, รูป/ตาราง, การอ้างอิง, โค้ด R, การ build) อยู่ที่ [`skills/rice-exp-book/`](skills/rice-exp-book/SKILL.md)
+
+ตรวจรูปหลังเพิ่ม/ย้าย/ลบ:
+
+```bash
+Rscript _check-media.R
+```
+
+### ใช้ skill กับ Claude Code
+
+```
+/plugin marketplace add kanthjs/tech_rice_exp_book
+```
 
 ## เนื้อหา (23 บท)
 
