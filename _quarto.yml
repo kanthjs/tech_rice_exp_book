@@ -3,6 +3,11 @@ project:
   output-dir: _book
   resources:
     - fonts/*.woff2
+    - images/favicon.svg
+    - images/favicon-96x96.png
+    - images/apple-touch-icon.png
+    - images/web-app-manifest-*.png
+    - site.webmanifest
 
 lang: th
 
@@ -83,6 +88,7 @@ format:
       light: [cosmo, styles.scss, light.scss]
       dark: [darkly, styles.scss]
     css: fonts/fonts.css
+    include-in-header: favicon-head.html
     toc: true
     toc-depth: 3
     number-sections: true
