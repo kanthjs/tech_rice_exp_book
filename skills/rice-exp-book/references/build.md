@@ -29,5 +29,6 @@ Pushing to `main` runs `.github/workflows/deploy.yml`, which installs Quarto and
 
 ## Metadata
 
-- `website.llms-txt: true` writes `llms.txt` and a `.llms.md` for each chapter.
+- `llms-txt: true` writes `llms.txt` and a `.llms.md` for each chapter. It is set under both `website:` and `book:`, and both stay: Quarto ≥ 1.11 overwrites `website.llms-txt` with `book.llms-txt`, while older releases read only `website.llms-txt`.
+- CI installs the latest Quarto release (`quarto-actions/setup@v2`), which can be newer than the local one, so after a deploy also check a live URL, e.g. `curl -I https://kanthjs.github.io/tech_rice_exp_book/llms.txt`.
 - Open Graph uses each page's own `description`. The book-level description lives in `index.qmd` frontmatter, not in `book.description`; if it is set there, every page reports it as `og:description`.
