@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: _book
+  resources:
+    - fonts/*.woff2
 
 lang: th
 
