@@ -1,0 +1,81 @@
+project:
+  type: book
+  output-dir: _book
+
+lang: th
+
+book:
+  title: "เทคนิคการทดลองในแปลงนาข้าว"
+  subtitle: "สำหรับนักวิจัยข้าวที่ทำการทดลองภาคสนาม"
+  author: "Kanthanawit Jaisong"
+  description: "หนังสือดิจิทัลว่าด้วยเทคนิคการทดลองภาคสนามสำหรับข้าว เรียบเรียงจาก Techniques for field experiments with rice (Gomez, 1972)"
+  site-url: https://kanthjs.github.io/tech_rice_exp_book/
+  repo-url: https://github.com/kanthjs/tech_rice_exp_book
+  repo-actions: [edit, issue]
+  favicon: images/quadrat-frame-favicon.ico
+  cover-image: images/cover.jpg
+  page-navigation: true
+  sidebar:
+    logo: images/logo.png
+    search: true
+  chapters:
+    - index.qmd
+    - 1-plotsize.qmd
+    - 2-number_rep.qmd
+    - 3-exp_design.qmd
+    - 4-blocking.qmd
+    - 5-random.qmd
+    - 6-soil_het.qmd
+    - 7-border_effect.qmd
+    - 8-missing_hill.qmd
+    - 9-replanting.qmd
+    - 10-residual_fert.qmd
+    - 11-residual_unplanted.qmd
+    - 12-number_seedlings.qmd
+    - 13-offtypes.qmd
+    - 14-pest_disease.qmd
+    - 15-minor.qmd
+    - 16-plot_sampling.qmd
+    - 17-measuring_yield.qmd
+    - 18-measuring_height.qmd
+    - 19-measuring_component.qmd
+    - 20-measuring_lai.qmd
+    - 21-measuring_stemborer.qmd
+    - 22-sampling_broadcast.qmd
+    - 23-sampling_protein.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+language:
+  crossref-fig-title: "รูปที่"
+  crossref-tbl-title: "ตารางที่"
+  crossref-ch-prefix: "บทที่"
+  section-title-references: "เอกสารอ้างอิง"
+  toc-title-document: "ในบทนี้"
+  callout-tip-title: "เคล็ดลับ"
+  callout-note-title: "หมายเหตุ"
+  callout-warning-title: "ข้อควรระวัง"
+  callout-important-title: "สำคัญ"
+  search-no-results-text: "ไม่พบผลลัพธ์"
+  search-text-placeholder: "ค้นหา"
+
+execute:
+  echo: true
+  warning: false
+  message: false
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 1
+    smooth-scroll: true
+    code-copy: true
+    code-link: true
+    lightbox: true

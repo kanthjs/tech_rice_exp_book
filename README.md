@@ -1,51 +1,54 @@
 # เทคนิคการทดลองในแปลงนาข้าว
 
-หนังสือดิจิทัลว่าด้วยเทคนิคการทดลองภาคสนามสำหรับข้าว สร้างด้วย [Astro Starlight](https://starlight.astro.build/)
+หนังสือดิจิทัลว่าด้วยเทคนิคการทดลองภาคสนามสำหรับข้าว สร้างด้วย [Quarto](https://quarto.org/) (book project)
 
 อ้างอิงจาก: **Techniques for field experiments with rice** โดย ดร. ขวัญชัย โกเมซ (Dr. Kwanchai Gomez), IRRI
+
+เว็บ: <https://kanthjs.github.io/tech_rice_exp_book/>
 
 ---
 
 ## การพัฒนา
 
-```bash
-# ติดตั้ง dependencies
-npm install
+ต้องมี [Quarto](https://quarto.org/docs/get-started/) และ R พร้อมแพ็กเกจ `knitr`, `rmarkdown`, `agricolae`
 
-# รัน dev server
-npm run dev
-
-# build สำหรับ production
-npm run build
-
-# preview build
-npm run preview
+```r
+install.packages(c("knitr", "rmarkdown", "agricolae"))
 ```
+
+```bash
+# preview แบบ live reload
+quarto preview
+
+# render ทั้งเล่มไปที่ _book/
+quarto render
+```
+
+ถ้า Quarto หา R ไม่เจอ ให้ตั้ง `QUARTO_R` ชี้ไปที่โฟลเดอร์ `bin` ของ R
+
+Deploy อัตโนมัติไป GitHub Pages ผ่าน GitHub Actions เมื่อ push เข้า `main` (`.github/workflows/deploy.yml`)
 
 ## โครงสร้างโปรเจกต์
 
 ```
-star_book/
-├── public/                  # Static assets (รูปภาพประกอบบท)
-│   ├── cover.jpg            # หน้าปกหนังสือ
-│   ├── quadrat-frame-favicon.ico
-│   └── fig*.png             # รูปภาพประกอบแต่ละบท
-├── src/
-│   ├── assets/              # Assets ที่ Astro optimize
-│   │   ├── cover.jpg        # หน้าปก (hero image)
-│   │   └── logo.png         # โลโก้
-│   ├── content/
-│   │   └── docs/            # เนื้อหาหนังสือ (.mdx)
-│   │       ├── index.mdx    # Landing page
-│   │       ├── introduction.mdx
-│   │       ├── 1-plotsize.mdx
-│   │       ├── 2-number_rep.mdx
-│   │       └── ...          # บทที่ 3–23
-│   └── styles/
-│       ├── fonts.css        # Noto Sans Thai
-│       └── katex.css        # KaTeX math rendering
-└── astro.config.mjs         # การตั้งค่า Astro + Starlight
+tech_rice_exp_book/
+├── _quarto.yml          # การตั้งค่า book: ลำดับบท, theme, ภาษา
+├── index.qmd            # คำนำ
+├── 1-plotsize.qmd       # บทที่ 1
+├── ...                  # บทที่ 2–23
+├── references.qmd       # เอกสารอ้างอิง
+├── references.bib       # BibTeX (อ้างอิงด้วย @key)
+├── styles.css           # ฟอนต์ Noto Sans Thai
+└── images/              # รูปประกอบ ปก โลโก้ favicon
 ```
+
+## การเขียนเนื้อหา
+
+- เพิ่มบทใหม่: สร้าง `N-slug.qmd` แล้วเพิ่มใน `book.chapters` ของ `_quarto.yml`
+- รูป: `![คำบรรยาย](images/figN.M.png){#fig-xxx}` แล้วอ้างด้วย `@fig-xxx`
+- กล่องข้อความ: `::: {.callout-tip}` / `note` / `warning` / `important`
+- โค้ด R: ใช้ ```` ```{r} ```` จะถูกรันตอน render; ใส่ `#| eval: false` ถ้าไม่ต้องการให้รัน
+- อ้างอิง: `[@gomez1972techniques]`
 
 ## เนื้อหา (23 บท)
 

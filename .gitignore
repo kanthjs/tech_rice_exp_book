@@ -1,25 +1,19 @@
-# build output
-dist/
-# generated types
-.astro/
+# Quarto output
+/_book/
+/.quarto/
+/_freeze/
+**/*.quarto_ipynb
 
-# dependencies
-node_modules/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# R
+.Rhistory
+.RData
+.Rproj.user/
 
 
-# environment variables
-.env
-.env.production
-
-# macOS-specific files
+# OS
 .DS_Store
+Thumbs.db
 
-#claude
+# claude
 CLAUDE.md
 .claude/
