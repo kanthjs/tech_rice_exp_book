@@ -9,6 +9,8 @@ quarto preview     # live reload while editing
 
 A render is done when it finishes with zero warnings. Check the R output in the changed chapters too, not only that the render finished.
 
+Use the standalone Quarto (`C:\Program Files\Quarto\bin`, same release as CI), not the older copy bundled with RStudio. Check with `quarto --version`. A `quarto preview` left running in RStudio locks `.quarto/` and makes a separate `quarto render` fail with a rename error; stop the preview first.
+
 On Windows, if Quarto can't find R, point it at R's `bin` folder:
 
 ```bash
