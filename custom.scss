@@ -1,0 +1,42 @@
+/*-- scss:defaults --*/
+
+// @font-face rules for Google Sans live in fonts/fonts.css (plain CSS keeps the
+// relative url() paths working after Quarto compiles SCSS into site_libs/).
+$font-family-sans-serif: "Google Sans", system-ui, -apple-system, sans-serif;
+$font-size-root: 18px;          // ตัวไทยต้องใหญ่กว่าตัวอังกฤษเล็กน้อยจึงอ่านสบาย
+$line-height-base: 1.75;        // เผื่อที่ให้สระบน-ล่างและวรรณยุกต์
+
+// Rice-field palette
+$rice-green: #2f6b2f;
+$rice-green-dark: #1f4a20;
+$paddy-brown: #8a5a2b;
+
+$primary: $rice-green !default;
+$link-color: $rice-green !default;
+$code-color: $paddy-brown !default;
+$headings-color: $rice-green-dark !default;
+$body-bg: #fbf8f1 !default;     // grain cream
+
+/*-- scss:rules --*/
+h1, h2, h3 { font-weight: 700; line-height: 1.4; }
+.figure-caption, figcaption { font-size: 0.95rem; }
+
+/* ขอบขวา: เชิงอรรถ คำบรรยายรูป และ aside ให้เล็กลงและสีอ่อนลงแบบ socviz */
+.column-margin, .margin-caption, .aside, aside,
+#quarto-margin-sidebar .footnote, .footnote-margin {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #555;
+}
+.sidebar-title { font-weight: 700; }
+
+// Part headings in the sidebar
+.sidebar-item-section > .sidebar-item-container .sidebar-item-text {
+  font-weight: 700;
+  color: $paddy-brown;
+}
+
+.quarto-figure img {
+  max-width: 100%;
+  height: auto;
+}

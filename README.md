@@ -10,47 +10,52 @@
 
 ## การพัฒนา
 
-ต้องมี [Quarto](https://quarto.org/docs/get-started/) และ R พร้อมแพ็กเกจ `knitr`, `rmarkdown`, `agricolae`
+โครงและหลักการทำงานยึดตาม Plant_Epi_Thai_book: ชื่อไฟล์ `NN-slug.qmd` หัวบทมี `{#sec-slug}` อ้างข้ามบทด้วย `@sec-` เลย์เอาต์ขอบกว้าง (socviz) ผลลัพธ์ทั้งเว็บและ PDF ฟอนต์ Google Sans และอภิธานศัพท์ท้ายเล่ม กติกาทั้งหมดอยู่ใน [`CLAUDE.md`](CLAUDE.md)
+
+ต้องมี [Quarto](https://quarto.org/docs/get-started/) 1.11+, TinyTeX (`quarto install tinytex`) และ R พร้อมแพ็กเกจ
 
 ```r
-install.packages(c("knitr", "rmarkdown", "agricolae"))
+install.packages(c("knitr", "rmarkdown", "agricolae", "ragg", "downlit", "xml2"))
 ```
 
 ```bash
-# preview แบบ live reload
-quarto preview
-
-# render ทั้งเล่มไปที่ _book/
-quarto render
+quarto preview              # preview แบบ live reload
+quarto render --to html     # เว็บ
+quarto render --to pdf      # PDF (XeLaTeX)
+quarto render               # ทั้งสองแบบไปที่ _book/
 ```
 
 ถ้า Quarto หา R ไม่เจอ ให้ตั้ง `QUARTO_R` ชี้ไปที่โฟลเดอร์ `bin` ของ R
 
-Deploy อัตโนมัติไป GitHub Pages ผ่าน GitHub Actions เมื่อ push เข้า `main` (`.github/workflows/deploy.yml`)
+Deploy อัตโนมัติไป GitHub Pages ผ่าน GitHub Actions เมื่อ push เข้า `main` (`.github/workflows/deploy.yml`) หน้าเว็บมีปุ่มดาวน์โหลด PDF
 
 ## โครงสร้างโปรเจกต์
 
 ```
 tech_rice_exp_book/
-├── _quarto.yml          # การตั้งค่า book: ลำดับบท, theme, ภาษา
-├── index.qmd            # คำนำ
-├── 1-plotsize.qmd       # บทที่ 1
-├── ...                  # บทที่ 2–23
-├── references.qmd       # เอกสารอ้างอิง
-├── references.bib       # BibTeX (อ้างอิงด้วย @key)
-├── styles.scss          # ตัวแปร theme ที่ใช้ร่วมกัน (ฟอนต์)
-├── light.scss           # สีนาข้าว (light theme)
-├── fonts/               # ฟอนต์จุฬาภรณ์ลิขิต (woff2 + fonts.css)
-├── images/              # รูปประกอบ ปก โลโก้ favicon
-├── favicon-head.html    # <link> ของ favicon/manifest
-├── site.webmanifest
-├── _check-media.R       # หารูปที่ไม่ได้ใช้ / path รูปที่ไม่มีอยู่
-└── skills/rice-exp-book # Claude skill: กติกาการเขียนเล่มนี้
+├── _quarto.yml              # การตั้งค่า book: ลำดับบท, layout, crossref ไทย, html + pdf
+├── CLAUDE.md                # กติกาการเขียนและการทำงานของเล่มนี้
+├── index.qmd                # คำนำ
+├── 01-plot-size.qmd         # บทที่ 1 (หัวบท {#sec-plot-size})
+├── ...                      # บทที่ 2–23
+├── references.qmd           # เอกสารอ้างอิง
+├── appendix-glossary.qmd    # ภาคผนวก อภิธานศัพท์ (ข้อตกลงศัพท์ทั้งเล่ม)
+├── references.bib           # BibTeX (อ้างอิงด้วย @key)
+├── custom.scss              # theme เว็บ: ฟอนต์ สีนาข้าว ขอบขวา
+├── custom-dark.scss         # dark mode
+├── preamble.tex             # ภาษาไทยใน PDF (ตัดคำ ป้ายไทย ฟอนต์ไทยในโค้ด)
+├── fonts/                   # Google Sans (.ttf) + fonts.css
+├── figures/chNN/            # รูปประกอบรายบท (scan-tbl-* = ภาพสแกนตารางต้นฉบับไว้ตรวจตัวเลข)
+├── images/                  # ปก โลโก้ favicon
+├── _freeze/                 # ผล R chunk ที่ render แล้ว (commit)
+├── favicon-head.html, site.webmanifest
+├── _check-media.R           # หารูปที่ไม่ได้ใช้ / path รูปที่ไม่มีอยู่
+└── skills/rice-exp-book     # Claude skill: กติกาฉบับย่อภาษาอังกฤษ
 ```
 
 ## การเขียนเนื้อหา
 
-กติกาทั้งหมด (การเพิ่มบท, ศัพท์, callout, รูป/ตาราง, การอ้างอิง, โค้ด R, การ build) อยู่ที่ [`skills/rice-exp-book/`](skills/rice-exp-book/SKILL.md)
+กติกาเต็มอยู่ที่ [`CLAUDE.md`](CLAUDE.md) ฉบับย่อสำหรับ Claude skill อยู่ที่ [`skills/rice-exp-book/`](skills/rice-exp-book/SKILL.md)
 
 ตรวจรูปหลังเพิ่ม/ย้าย/ลบ:
 

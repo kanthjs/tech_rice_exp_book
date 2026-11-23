@@ -5,7 +5,10 @@ R chunks execute at render time, locally and in CI, so the output shown in the b
 ## Writing a chunk
 
 - Use executable fences: ```` ```{r} ````. A plain ```` ```r ```` fence is display-only and its output is never checked.
-- Load only the packages the chunk uses. Packages available in CI are installed in `.github/workflows/deploy.yml` (`knitr`, `rmarkdown`, `agricolae`); when a chunk needs another package, add it there in the same change.
+- Start every chunk with `#| label:` (kebab-case, unique in the book). A chunk that draws a figure or a table also needs `#| fig-cap:` / `#| tbl-cap:`, in English.
+- Everything inside the chunk is English: comments, variable names, axis titles, legends.
+- Plots: `theme_minimal(base_family = "Google Sans")`; separate groups with linetype or shape as well as colour, so the printed PDF reads in black and white. Chunks render with `ragg_png`, which finds Google Sans through the system fonts.
+- Load only the packages the chunk uses. Packages available in CI are installed in `.github/workflows/deploy.yml` (`knitr`, `rmarkdown`, `agricolae`, `ragg`, `downlit`, `xml2`); when a chunk needs another package, add it there in the same change.
 - Use example data that is **realistic**: the right size for the design (e.g. 4 treatments × 4 replications for an RCB), plausible values for rice (yields in t/ha around 3–7), and enough residual df for an F-test (aim for at least 12, as chapter 2 recommends). Define the data in the chunk, or read it from a file committed next to the chapter.
 - Seed anything random (`design.rcbd(..., seed = 123)`, `set.seed()`), so the rendered layout is stable between builds.
 - Interpret the output in the prose right after the chunk, using the numbers the chunk actually prints.

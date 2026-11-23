@@ -2,14 +2,12 @@ project:
   type: book
   output-dir: _book
   resources:
-    - fonts/*.woff2
+    - fonts/*.ttf
     - images/favicon.svg
     - images/favicon-96x96.png
     - images/apple-touch-icon.png
     - images/web-app-manifest-*.png
     - site.webmanifest
-
-lang: th
 
 # llms-txt is set in both places: Quarto >= 1.11 copies book.llms-txt over
 # website.llms-txt, while older releases only read website.llms-txt.
@@ -21,56 +19,81 @@ book:
   title: "เทคนิคการทดลองในแปลงนาข้าว"
   subtitle: "สำหรับนักวิจัยข้าวที่ทำการทดลองภาคสนาม"
   author: "Kanthanawit Jaisong"
+  date: today
+  date-format: "D MMMM YYYY"
   site-url: https://kanthjs.github.io/tech_rice_exp_book/
   repo-url: https://github.com/kanthjs/tech_rice_exp_book
   repo-actions: [edit, source, issue]
+  downloads: [pdf]          # ปุ่มดาวน์โหลด PDF บนฉบับเว็บ
   open-graph: true
   favicon: images/quadrat-frame-favicon.ico
   cover-image: images/cover.jpg
   image: images/cover.jpg
-  page-navigation: true
+  search: true
+  page-navigation: true     # ปุ่มบทก่อนหน้า/ถัดไป ท้ายหน้า (ไม่ต้องเขียนลิงก์ "บทถัดไป" เอง)
   sidebar:
     logo: images/logo.png
-    search: true
+    style: docked           # สารบัญบทด้านซ้ายติดขอบ แบบ socviz.co
+    collapse-level: 1
+  page-footer:
+    center: "© Kanthanawit Jaisong · ศูนย์วิจัยข้าวปทุมธานี"
   chapters:
     - index.qmd
     - part: "การวางแผนการทดลอง"
       chapters:
-        - 1-plotsize.qmd
-        - 2-number_rep.qmd
-        - 3-exp_design.qmd
-        - 4-blocking.qmd
-        - 5-random.qmd
+        - 01-plot-size.qmd
+        - 02-replication.qmd
+        - 03-experimental-design.qmd
+        - 04-blocking.qmd
+        - 05-randomization.qmd
     - part: "แหล่งความแปรปรวนในแปลงทดลอง"
       chapters:
-        - 6-soil_het.qmd
-        - 7-border_effect.qmd
-        - 8-missing_hill.qmd
-        - 9-replanting.qmd
-        - 10-residual_fert.qmd
-        - 11-residual_unplanted.qmd
-        - 12-number_seedlings.qmd
-        - 13-offtypes.qmd
-        - 14-pest_disease.qmd
-        - 15-minor.qmd
+        - 06-soil-heterogeneity.qmd
+        - 07-border-effect.qmd
+        - 08-missing-hills.qmd
+        - 09-replanting.qmd
+        - 10-residual-fertilizer.qmd
+        - 11-unplanted-alleys.qmd
+        - 12-seedlings-per-hill.qmd
+        - 13-off-types.qmd
+        - 14-pests-diseases.qmd
+        - 15-minor-sources.qmd
     - part: "การสุ่มตัวอย่างและการวัด"
       chapters:
-        - 16-plot_sampling.qmd
-        - 17-measuring_yield.qmd
-        - 18-measuring_height.qmd
-        - 19-measuring_component.qmd
-        - 20-measuring_lai.qmd
-        - 21-measuring_stemborer.qmd
-        - 22-sampling_broadcast.qmd
-        - 23-sampling_protein.qmd
+        - 16-plot-sampling.qmd
+        - 17-grain-yield.qmd
+        - 18-height-tillers.qmd
+        - 19-yield-components.qmd
+        - 20-leaf-area-index.qmd
+        - 21-stem-borer.qmd
+        - 22-broadcast-sampling.qmd
+        - 23-protein-sampling.qmd
     - references.qmd
+  appendices:
+    - appendix-glossary.qmd
 
 bibliography: references.bib
 
+# ---------- เลย์เอาต์แบบขอบกว้าง (Tufte / socviz) ใช้ทั้งเว็บและ PDF ----------
+reference-location: margin   # เชิงอรรถไปอยู่ขอบขวา
+fig-cap-location: margin     # คำบรรยายรูปอยู่ขอบขวา
+# ตาราง: \sidecaption ใช้ใน longtable ของ PDF ไม่ได้ (Misplaced \noalign) จึงวางคำบรรยายไว้ด้านบน
+tbl-cap-location: top
+
+crossref:
+  fig-title: "รูปที่"
+  tbl-title: "ตารางที่"
+  eq-prefix: "สมการ"
+  fig-prefix: "รูปที่"
+  tbl-prefix: "ตารางที่"
+  chapters: true
+
+# ป้าย "บทที่" เวลาอ้าง @sec- ของหัวบท (crossref ไม่มี ch-prefix ต้องตั้งผ่าน language)
 language:
-  crossref-fig-title: "รูปที่"
-  crossref-tbl-title: "ตารางที่"
   crossref-ch-prefix: "บทที่"
+  crossref-apx-prefix: "ภาคผนวก"
+  crossref-sec-prefix: "หัวข้อ"
+  section-title-appendices: "ภาคผนวก"
   section-title-references: "เอกสารอ้างอิง"
   toc-title-document: "ในบทนี้"
   callout-tip-title: "เคล็ดลับ"
@@ -84,19 +107,80 @@ execute:
   echo: true
   warning: false
   message: false
+  freeze: auto
+
+knitr:
+  opts_chunk:
+    dev: ragg_png     # ragg อ่านฟอนต์ระบบผ่าน systemfonts ทำให้ตัวไทยในกราฟแสดงได้บน Windows
 
 format:
+  # ---------- ฉบับออนไลน์ ----------
   html:
+    lang: th
+    # การอ้างอิงที่ขอบขวาเฉพาะเว็บ: ใน PDF ของ Quarto 1.11 ถ้ามี citation ในคำบรรยายตาราง
+    # filter พัง (marginCitePlaceholderInlineWithProtection is nil) PDF จึงใช้การอ้างอิงในบรรทัดตามปกติ
+    citation-location: margin
     theme:
-      light: [cosmo, styles.scss, light.scss]
-      dark: [darkly, styles.scss]
+      light: [cosmo, custom.scss]
+      dark:  [cosmo, custom.scss, custom-dark.scss]
     css: fonts/fonts.css
     include-in-header: favicon-head.html
+    mainfont: "Google Sans"
     toc: true
+    toc-location: right
+    toc-title: "ในบทนี้"
     toc-depth: 3
     number-sections: true
     number-depth: 1
     smooth-scroll: true
+    code-link: true          # ชื่อฟังก์ชัน R ในโค้ดลิงก์ไปหน้าคู่มือ
     code-copy: true
-    code-link: true
+    reader-mode: true
     lightbox: true
+    html-math-method: mathjax
+    grid:
+      sidebar-width: 260px
+      body-width: 760px
+      margin-width: 300px
+
+  # ---------- ฉบับพิมพ์ (XeLaTeX) ----------
+  pdf:
+    pdf-engine: xelatex
+    documentclass: scrbook
+    classoption: [twoside, openright]
+    papersize: a4
+    geometry:
+      - inner=25mm
+      - top=25mm
+      - bottom=25mm
+      - textwidth=115mm
+      - marginparsep=7mm
+      - marginparwidth=48mm
+    fontsize: 11pt
+    linestretch: 1.45
+    # ฟอนต์ไทยอ่านจากไฟล์ใน fonts/
+    mainfont: "GoogleSans"
+    mainfontoptions: &googlesans
+      - Path=./fonts/
+      - Extension=.ttf
+      - UprightFont=*-Regular
+      - BoldFont=*-Bold
+      - ItalicFont=*-Italic
+      - BoldItalicFont=*-Bold
+    sansfont: "GoogleSans"
+    sansfontoptions: *googlesans
+    # DejaVu Sans Mono และ Latin Modern Math มากับ TinyTeX (tlmgr: dejavu, lm-math)
+    monofont: "DejaVuSansMono"
+    monofontoptions:
+      - Extension=.ttf
+      - BoldFont=*-Bold
+      - ItalicFont=*-Oblique
+      - BoldItalicFont=*-BoldOblique
+      - Scale=MatchLowercase
+    mathfont: "latinmodern-math.otf"
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    include-in-header: preamble.tex
+    keep-tex: true
