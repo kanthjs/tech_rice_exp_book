@@ -1,0 +1,17 @@
+/*-- scss:defaults --*/
+// Layered after custom.scss in the dark theme; these plain assignments win over its !default values.
+$body-bg: #1b1f1c;
+$body-color: #e6e6e1;
+$primary: #8cc79a;
+$link-color: #8cc79a;
+$headings-color: #cfe6d3;
+$code-color: #e0b98a;
+
+/*-- scss:rules --*/
+.column-margin, .margin-caption, .aside, aside,
+#quarto-margin-sidebar .footnote, .footnote-margin {
+  color: #b8b8b2;
+}
+.sidebar-item-section > .sidebar-item-container .sidebar-item-text {
+  color: #e0b98a;
+}

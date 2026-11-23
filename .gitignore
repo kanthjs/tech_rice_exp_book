@@ -1,24 +1,30 @@
-# Quarto output
+# Quarto output (_freeze/ IS committed, same as Plant_Epi_Thai_book)
 /_book/
 /.quarto/
-/_freeze/
 **/*.quarto_ipynb
+*_cache/
+
+# LaTeX leftovers from PDF renders
+*.log
+*.aux
+*.toc
+# keep-tex output
+/เทคนิคการทดลองในแปลงนาข้าว.tex
 
 # R
 .Rhistory
 .RData
 .Rproj.user/
 
-
 # OS
 .DS_Store
 Thumbs.db
 
-# claude
-CLAUDE.md
+# claude (CLAUDE.md IS committed)
 .claude/
 
 # Quarto intermediate files left at the root by an interrupted render
 /*.html
 !/favicon-head.html
 /site_libs/
+/*_files/

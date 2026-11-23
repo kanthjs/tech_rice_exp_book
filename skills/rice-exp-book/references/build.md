@@ -3,31 +3,40 @@
 ## Render
 
 ```bash
-quarto render      # whole book → _book/
-quarto preview     # live reload while editing
+quarto render --to html   # web → _book/
+quarto render --to pdf    # print version → _book/เทคนิคการทดลองในแปลงนาข้าว.pdf
+quarto render             # both
+quarto preview            # live reload while editing
 ```
 
-A render is done when it finishes with zero warnings. Check the R output in the changed chapters too, not only that the render finished.
+A render is done when it finishes with zero warnings and the PDF compiles. Check the R output in the changed chapters too, not only that the render finished. `execute.freeze: auto` stores chunk results in `_freeze/`, which is committed.
 
 Use the standalone Quarto (`C:\Program Files\Quarto\bin`, same release as CI), not the older copy bundled with RStudio. Check with `quarto --version`. A `quarto preview` left running in RStudio locks `.quarto/` and makes a separate `quarto render` fail with a rename error; stop the preview first.
 
-On Windows, if Quarto can't find R, point it at R's `bin` folder:
+On Windows, if Quarto can't find R or xelatex, put them on the path:
 
 ```bash
 export QUARTO_R="/c/Program Files/R/R-4.6.1/bin"
+export PATH="$HOME/AppData/Roaming/TinyTeX/bin/windows:$PATH"
 ```
 
-Run `Rscript -e 'library(agricolae)'` once to confirm that the R install has the packages.
+## PDF
+
+- XeLaTeX, KOMA-Script `scrbook`, A4, wide outer margin. Never switch to pdflatex: it can't set Thai.
+- `preamble.tex` sets Thai line breaking (`\XeTeXlinebreaklocale "th"`), Thai labels, and a Thai fallback (Google Sans) for monospace text, because DejaVu Sans Mono has no Thai glyphs.
+- Citations sit in the margin on the web only. In the PDF, Quarto 1.11's margin-citation filter crashes on a citation inside a table caption, so `citation-location: margin` is set under `format.html`.
+- In math, escape `%` as `\%` even inside `\text{}`, and close inline math with `$`, not `\$`; either mistake stops the LaTeX build.
+- To check for missing glyphs, run xelatex on the kept `.tex` and search its log for "Missing character"; there should be none.
 
 ## Deploy
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which installs Quarto and R and publishes `_book/` to GitHub Pages at https://kanthjs.github.io/tech_rice_exp_book/. The workflow doesn't run on pull requests, so a PR is only verified by a local render. `_book/` is gitignored and never committed.
+Pushing to `main` runs `.github/workflows/deploy.yml`, which installs Quarto, TinyTeX and R, renders both formats and publishes `_book/` to GitHub Pages at https://kanthjs.github.io/tech_rice_exp_book/. The workflow doesn't run on pull requests, so a PR is only verified by a local render. `_book/` is gitignored and never committed.
 
 ## Theme and fonts
 
-- `styles.scss`: Bootstrap variables shared by light and dark (font families, line height).
-- `light.scss`: the rice-field palette, light theme only. Set colors here, so dark mode keeps darkly's contrast.
-- `fonts/fonts.css`: the `@font-face` rules for Chulabhorn Likit (จุฬาภรณ์ลิขิต). They stay in a plain CSS file because Quarto compiles SCSS into `site_libs/`, which breaks relative `url()` paths; `fonts/*.woff2` reach `_book/` via `project.resources`.
+- `custom.scss`: font, sizes and the rice-field palette, shared by light and dark.
+- `custom-dark.scss`: dark-mode overrides, layered after `custom.scss`.
+- `fonts/fonts.css`: the `@font-face` rules for Google Sans. They stay in a plain CSS file because Quarto compiles SCSS into `site_libs/`, which breaks relative `url()` paths; `fonts/*.ttf` reach `_book/` via `project.resources`. The PDF reads the same `.ttf` files through `mainfontoptions: Path=./fonts/`.
 
 ## Metadata
 

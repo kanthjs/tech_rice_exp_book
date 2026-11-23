@@ -1,9 +1,10 @@
 # Fonts
 
-**Chulabhorn Likit (จุฬาภรณ์ลิขิต)**: Text (Light, Regular, Medium, Bold) and Display (Medium).
+**Google Sans**: Regular, Bold, Italic (`.ttf`). Used everywhere: web (`fonts.css`), PDF (XeLaTeX `mainfont`/`sansfont` in `_quarto.yml`) and ggplot (`base_family = "Google Sans"`), the same as Plant_Epi_Thai_book.
 
-- Source: official download from Chulabhorn Royal Academy, https://www.cra.ac.th/th/download_fonts
-  (`Chulabhorn_Likit.zip`, `webfont/` folder, woff2 files used as-is)
-- Copyright © 2020 Chulabhorn Royal Academy. Designed by Cadson Demak Co., Ltd.
-  "Chulabhorn Likit" is a trademark of Chulabhorn Royal Academy.
-- More information and donations: https://www.cra.ac.th/index.php/font_likit/
+- Copied from `Plant_Epi_Thai_book/fonts/` (23 Nov 2026).
+- TODO: add the font's license file (`OFL.txt`) from the official Google Sans release. The `OFL.txt` in Plant_Epi_Thai_book is Sarabun's, not Google Sans's.
+
+The `@font-face` rules live in plain CSS (`fonts.css`) rather than SCSS: Quarto compiles SCSS into `site_libs/`, which breaks relative `url()` paths. The `.ttf` files reach `_book/` via `project.resources`.
+
+For R plots on Windows the font must also be installed in the system (or registered with `systemfonts::register_font()`), because `ragg` reads system fonts.
